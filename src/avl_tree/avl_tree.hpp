@@ -10,10 +10,11 @@ public:
     void insert(int key);
     bool find(int key);
 
-    int unbalancedCnt;
+    int smallRotations;
+    Node *root;
 private:
     friend class BestInsertTester;
-    Node *root;
+    
 
     Node *findRec(Node *node, int key) const;
     Node *insertRec(int key, Node *node);

@@ -18,7 +18,7 @@ TesterData BestInsertTester::test() {
     while(!nodes.empty()) {
         Node *n = nodes.front();
         nodes.pop();
-        //std::cout << n->key << " ";
+        
         if (n->left) nodes.push(n->left);
         if (n->right) nodes.push(n->right);
         
@@ -30,10 +30,11 @@ TesterData BestInsertTester::test() {
     AVLTree tree;
     
     data.startTime = std::chrono::steady_clock::now();
-    for (int i : input)
+    for (int i : input) {
         tree.insert(i);
+    }
     data.endTime = std::chrono::steady_clock::now();
+    data.smallRotationQuantity = tree.smallRotations;
     
-    std::cout << "BestIns " << tree.unbalancedCnt << '\n';
     return data;
 }

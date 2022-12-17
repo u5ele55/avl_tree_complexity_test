@@ -8,7 +8,7 @@ WorstInsertTester::WorstInsertTester(int count) : InsertTester(count) {}
 TesterData WorstInsertTester::test() {
     std::vector<int> input(m_count);
     for(int i = 0; i < m_count; i ++)
-        input[i] = i;
+        input[i] = 5;
 
     TesterData data; 
     AVLTree tree; 
@@ -17,7 +17,7 @@ TesterData WorstInsertTester::test() {
     for (int i : input)
         tree.insert(i);
     data.endTime = std::chrono::steady_clock::now();
-    std::cout << "WorstIns " << tree.unbalancedCnt << '\n';
-
+    data.smallRotationQuantity = tree.smallRotations;
+    
     return data;
 }

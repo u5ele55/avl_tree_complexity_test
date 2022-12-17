@@ -1,13 +1,11 @@
 #include "avl_tree.hpp"
 #include <iostream>
 
-AVLTree::AVLTree() : root(nullptr), unbalancedCnt(0) {}
+AVLTree::AVLTree() : root(nullptr), smallRotations(0) {}
 
 void AVLTree::insert(int key) {
-    if (root == nullptr) 
-        root = new Node(key);
-    else 
-        root = insertRec(key, root);
+	//std::cout << "Insert " << key << '\n';
+    root = insertRec(key, root);
 }
 
 bool AVLTree::find(int key) {
@@ -32,6 +30,7 @@ Node* AVLTree::findRec(Node *node, int key) const {
 
 Node* AVLTree::balance(Node* node) {
 	recalculateHeight(node);
+	//std::cout << "BALANCE of " << node->key << " " << node->height << '\n';
 	if ( getBalanceFactor(node) == 2 ) {
 		if ( getBalanceFactor(node->right) < 0 )
 			node->right = rotateRight(node->right);
@@ -46,7 +45,9 @@ Node* AVLTree::balance(Node* node) {
 }
 
 Node* AVLTree::rotateLeft(Node* q) {
-	unbalancedCnt ++;
+	
+	smallRotations ++;
+	//std::cout << "rotateLeft " << q->key << " " << q->height << '\n';
 	Node* p = q->right;
 	q->right = p->left;
 	p->left = q;
@@ -55,7 +56,9 @@ Node* AVLTree::rotateLeft(Node* q) {
 	return p;
 }
 Node* AVLTree::rotateRight(Node* p) {
-	unbalancedCnt ++;
+	
+	smallRotations ++;
+	//std::cout << "rotateRight " << p->key << " " << p->height << '\n';
 	Node* q = p->left;
 	p->left = q->right;
 	q->right = p;
@@ -65,8 +68,8 @@ Node* AVLTree::rotateRight(Node* p) {
 }
 
 void AVLTree::recalculateHeight(Node* node) {
-	unsigned char hl = getHeight(node->left);
-	unsigned char hr = getHeight(node->right);
+	short hl = getHeight(node->left);
+	short hr = getHeight(node->right);
 	node->height = (hl > hr ? hl : hr) + 1;
 }
 short AVLTree::getHeight(Node *node) const {

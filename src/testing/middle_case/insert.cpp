@@ -22,7 +22,7 @@ TesterData MiddleInsertTester::test() {
     for (int i : input)
         tree.insert(i);
     data.endTime = std::chrono::steady_clock::now();
-    std::cout << "MidIns " << tree.unbalancedCnt << '\n';
+    data.smallRotationQuantity = tree.smallRotations;
 
     return data;
 }
