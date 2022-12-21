@@ -6,17 +6,16 @@
 class AVLTree {
 public:
     AVLTree();
-
+    ~AVLTree();
     void insert(int key);
     bool find(int key);
 
-    int smallRotations;
     Node *root;
 private:
     friend class BestInsertTester;
     
 
-    Node *findRec(Node *node, int key) const;
+    Node *findRec(Node *node, int key);
     Node *insertRec(int key, Node *node);
 
     short getHeight(Node *node) const;

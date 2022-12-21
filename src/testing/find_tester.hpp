@@ -6,10 +6,10 @@
 
 class FindTester : public Tester {
 public: 
-    FindTester(int count, AVLTree tree);
+    FindTester(int count, AVLTree *tree);
 protected:
     int m_count;
-    AVLTree m_tree;
+    AVLTree *m_tree;
 };
 
 #endif

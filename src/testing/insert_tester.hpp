@@ -6,9 +6,10 @@
 
 class InsertTester : public Tester {
 public: 
-    InsertTester(int count);
+    InsertTester(int elements, int insertCount);
 protected:
     int m_count;
+    int m_elements;
     std::vector<int> m_input;
 };
 

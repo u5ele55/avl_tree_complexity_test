@@ -1,17 +1,38 @@
 #include "avl_tree.hpp"
 #include <iostream>
+#include <queue>
 
-AVLTree::AVLTree() : root(nullptr), smallRotations(0) {}
+AVLTree::AVLTree() : root(nullptr) {}
+
+AVLTree::~AVLTree() {
+	std::queue<Node*> nodes;
+    nodes.push(root);
+
+    while(!nodes.empty()) {
+        Node *n = nodes.front();
+        nodes.pop();
+        
+        if (n->left) nodes.push(n->left);
+        if (n->right) nodes.push(n->right);
+        
+        delete n;
+    }
+}
 
 void AVLTree::insert(int key) {
-	//std::cout << "Insert " << key << '\n';
     root = insertRec(key, root);
 }
 
 bool AVLTree::find(int key) {
     return findRec(root, key) != nullptr;
 }
+Node* AVLTree::findRec(Node *node, int key) {
+    if (node == nullptr) return nullptr;
+    if (node->key == key) return node;
 
+    if (node->key > key) return findRec(node->left, key);
+    return findRec(node->right, key);
+}
 Node* AVLTree::insertRec(int key, Node *node) {
 	if ( node == nullptr ) node = new Node(key);
 	else if ( key < node->key )
@@ -20,17 +41,10 @@ Node* AVLTree::insertRec(int key, Node *node) {
 		node->right = insertRec(key, node->right);
 	return balance(node);
 }
-Node* AVLTree::findRec(Node *node, int key) const {
-    if (node == nullptr) return nullptr;
-    if (node->key == key) return node;
 
-    if (node->key > key) return findRec(node->left, key);
-    return findRec(node->right, key);
-}
 
 Node* AVLTree::balance(Node* node) {
 	recalculateHeight(node);
-	//std::cout << "BALANCE of " << node->key << " " << node->height << '\n';
 	if ( getBalanceFactor(node) == 2 ) {
 		if ( getBalanceFactor(node->right) < 0 )
 			node->right = rotateRight(node->right);
@@ -45,9 +59,6 @@ Node* AVLTree::balance(Node* node) {
 }
 
 Node* AVLTree::rotateLeft(Node* q) {
-	
-	smallRotations ++;
-	//std::cout << "rotateLeft " << q->key << " " << q->height << '\n';
 	Node* p = q->right;
 	q->right = p->left;
 	p->left = q;
@@ -56,9 +67,6 @@ Node* AVLTree::rotateLeft(Node* q) {
 	return p;
 }
 Node* AVLTree::rotateRight(Node* p) {
-	
-	smallRotations ++;
-	//std::cout << "rotateRight " << p->key << " " << p->height << '\n';
 	Node* q = p->left;
 	p->left = q->right;
 	q->right = p;

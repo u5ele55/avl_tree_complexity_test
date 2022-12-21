@@ -1,54 +1,66 @@
 #include "testing/best_case/insert.hpp"
-#include "testing/custom_insert_tester.hpp"
+#include "testing/custom/custom_insert_tester.hpp"
 #include "testing/best_case/find.hpp"
 #include "testing/middle_case/insert.hpp"
 #include "testing/worst_case/insert.hpp"
-#include <iostream>
+#include "testing/worst_case/find.hpp"
+#include "testing/middle_case/find.hpp"
 
+#include "testing/generator/random_tree_generator.hpp"
+#include "testing/utilities/middle_result.hpp"
+#include <iostream>
+#include <fstream>
 
 #include <queue>
 
-void printResult(TesterData data, std::string testname = "") {
-    std::cout << testname << "\n " << data.nanoseconds() << " ns ; " << data.smallRotationQuantity << " small rotations \n";
+
+
+void testing() {
+    std::ofstream file("some.txt", std::ios::app);
+    std::srand ( unsigned ( std::time(0) ) );
+    Tester *tester;
+
+    int searchQuantity = 10000;
+    int insertQuantity = 10000;
+    for(int i = 20; i < 21; i ++) {
+        // int elementsQuantity = i * 100 * 1000;
+        // file << '\n';
+        // file << elementsQuantity << "\n";
+        
+        // MiddleResult middle;
+        // tester = new BestInsertTester(elementsQuantity, insertQuantity);
+        // file << middle.middleResult(tester, 8) << " ";
+        // delete tester;
+        // tester = new MiddleInsertTester(elementsQuantity, insertQuantity);
+        // file << middle.middleResult(tester, 8) << " ";
+        // delete tester;
+        // tester = new WorstInsertTester(elementsQuantity, insertQuantity);
+        // file << middle.middleResult(tester, 8) << " ";
+        // delete tester;
+        
+        // RandomAVLTreeGenerator gena(elementsQuantity);
+        // AVLTree *tree = gena.generate();
+
+        // tester = new BestFindTester(searchQuantity, tree);
+        // file << middle.middleResult(tester, 10) << " ";
+        // delete tester;
+        // tester = new MiddleFindTester(searchQuantity, tree);
+        // file << middle.middleResult(tester, 10) << " ";
+        // delete tester;
+        // tester = new WorstFindTester(searchQuantity, tree);
+        // file << middle.middleResult(tester, 10) << " ";
+        // delete tester;
+        // delete tree;
+
+        // std::cout << elementsQuantity << " processed\n";
+    }
+    
+    file.close();
+
 }
 
 int main() {
-    AVLTree tree;
-    int cnt = 10 * 1000000;
-    std::cout << "Input size: " << cnt << '\n';
-    Tester *tester;
+    //testing();
 
-    tester = new WorstInsertTester(cnt);
-    printResult(tester->test(), "Worst Insert");
-    delete tester;
-    tester = new BestInsertTester(cnt);
-    printResult(tester->test(), "Best Insert");
-    delete tester;
-    tester = new MiddleInsertTester(cnt);
-    printResult(tester->test(), "Random Insert");
-    delete tester;
-    
-    
-    // std::vector<int> input(cnt);
-    // AVLTree helptree; 
-    // for (int i = 0; i < cnt; i ++)
-    //     helptree.insert(i);
-    // std::queue<Node*> nodes;
-    // nodes.push(helptree.root);
-    // int ind = 0;
-
-    // while(!nodes.empty()) {
-    //     Node *n = nodes.front();
-    //     nodes.pop();
-        
-    //     if (n->left) nodes.push(n->left);
-    //     if (n->right) nodes.push(n->right);
-        
-    //     input[ind] = n->key;
-    //     ind ++;
-    // }
-
-    // CustomInsertTester tr(input);
-
-    // printResult(tr.test(), "Custom Insert 100k");
+    return 0;
 }

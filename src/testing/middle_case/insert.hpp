@@ -5,7 +5,7 @@
 
 class MiddleInsertTester : public InsertTester {
 public: 
-    MiddleInsertTester(int count);
+    MiddleInsertTester(int elements, int count);
     TesterData test() final;
 };
 

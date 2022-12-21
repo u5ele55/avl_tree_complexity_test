@@ -5,7 +5,7 @@
 
 class WorstInsertTester : public InsertTester {
 public: 
-    WorstInsertTester(int count);
+    WorstInsertTester(int elements, int count);
     TesterData test() final;
 };
 

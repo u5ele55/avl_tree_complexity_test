@@ -3,13 +3,15 @@
 
 #include <iostream>
 
-BestInsertTester::BestInsertTester(int count) : InsertTester(count) {} 
+BestInsertTester::BestInsertTester(int elements, int count)
+ : InsertTester(elements, count) {} 
+
 
 TesterData BestInsertTester::test() {
     // Generate data
-    std::vector<int> input(m_count);
+    std::vector<int> input(m_elements + m_count);
     AVLTree helptree; 
-    for (int i = 0; i < m_count; i ++)
+    for (int i = 0; i < m_elements + m_count; i ++)
         helptree.insert(i);
     std::queue<Node*> nodes;
     nodes.push(helptree.root);
@@ -29,12 +31,12 @@ TesterData BestInsertTester::test() {
     TesterData data; 
     AVLTree tree;
     
+    for (int i = 0; i < m_elements; i ++) 
+        tree.insert(input[i]);
     data.startTime = std::chrono::steady_clock::now();
-    for (int i : input) {
-        tree.insert(i);
-    }
+    for (int i = m_elements; i < m_elements + m_count; i ++)
+        tree.insert(input[i]);
     data.endTime = std::chrono::steady_clock::now();
-    data.smallRotationQuantity = tree.smallRotations;
     
     return data;
 }

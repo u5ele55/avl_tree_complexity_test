@@ -5,7 +5,7 @@
 
 class BestFindTester : public FindTester {
 public: 
-    BestFindTester(int count, AVLTree tree);
+    BestFindTester(int count, AVLTree *tree);
     TesterData test() final;
 };
 

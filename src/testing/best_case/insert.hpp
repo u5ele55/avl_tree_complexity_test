@@ -5,7 +5,7 @@
 
 class BestInsertTester : public InsertTester {
 public: 
-    BestInsertTester(int count);
+    BestInsertTester(int elements, int count);
     TesterData test() final;
 };
 
