@@ -8,7 +8,7 @@ struct TesterData {
     std::chrono::_V2::steady_clock::time_point endTime;
 
     long long microseconds() {
-        return std::chrono::duration_cast<std::chrono::microseconds>(endTime - startTime).count();
+        return std::chrono::duration_cast<std::chrono::nanoseconds>(endTime - startTime).count();
     }
 };
 

@@ -15,7 +15,8 @@ SOURCES = main.cpp   \
 	  testing\middle_case\insert.cpp \
 	  testing\middle_case\find.cpp \
 	  testing\worst_case\insert.cpp \
-	  testing\worst_case\find.cpp
+	  testing\worst_case\find.cpp \
+	  testing\defense\defense.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
